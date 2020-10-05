@@ -9,6 +9,6 @@ package videojuegos;
  *
  * @author ans
  */
-public class Date {
+class date {
     
 }

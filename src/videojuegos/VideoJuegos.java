@@ -46,6 +46,7 @@ public class VideoJuegos {
         this.nombre = nuevoNombre;
     }
      
+    //Aquí empieza el método get y set
     public String getNombre() {
         return nombre;
     }
