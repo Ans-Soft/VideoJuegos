@@ -3,12 +3,12 @@ package videojuegos;
 
 public class VideoJuegos {
     
-    private String nombre; 
-    private int precioDelJuego;
-    private int descuentoInicialDelJuego;
-    private date fechaDeLanzamiento;
-    private String nombreDelJugador;
-    private Boolean juegoLanzado;
+    private String nombre;//Nombre del nuevo videojuego
+    private int precioDelJuego;//Precio de venta 
+    private int descuentoInicialDelJuego;//Descuento por las primeras compras del juego
+    private date fechaDeLanzamiento;//Fecha en la que se lanzo el juego
+    private String nombreDelJugador;//El username que use el jugador 
+    private Boolean juegoLanzado;//Si fue lanzado o no
 
     public VideoJuegos(String nombre, 
             int precioDelJuego, 
