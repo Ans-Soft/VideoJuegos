@@ -9,7 +9,11 @@ public class VideoJuegos {
     private date fechaDeLanzamiento;//Fecha en la que dio el lanzamiento del juego
     private String nombreDelJugador;//El username del comprador 
     private Boolean juegoLanzado;//Si fue ya lanzado o no 
-
+    
+    //Atributos de composición
+    private Ventas cantidadDeVentas = null;
+    private Pagos formasDePago;
+    
     public VideoJuegos(String nombre, 
             int precioDelJuego, 
             int descuentoInicialDelJuego, 
@@ -23,8 +27,25 @@ public class VideoJuegos {
         this.fechaDeLanzamiento = fechaDeLanzamiento;
         this.nombreDelJugador = nombreDelJugador;
         this.juegoLanzado = juegoLanzado;
+        this.cantidadDeVentas = new Ventas(78, "Samuel");  
     }
 
+    public Ventas getCantidadDeVentas() {
+        return cantidadDeVentas;
+    }
+
+    public void setCantidadDeVentas(Ventas cantidadDeVentas) {
+        this.cantidadDeVentas = cantidadDeVentas;
+    }
+
+    public Pagos getFormasDePago() {
+        return formasDePago;
+    }
+
+    public void setFormasDePago(Pagos formasDePago) {
+        this.formasDePago = formasDePago;
+    }
+    
     /** Este metodo nos permite saber cual es el descuento del juego por las 
      * primeras compras de lanzamiento.
      */
@@ -105,21 +126,18 @@ public class VideoJuegos {
                 "AnsTalia", 
                 true);
         
-        System.out.println(videoJuego.getPrecioDelJuego());  
-        System.out.println(videoJuego.getDescuentoInicialDelJuego());
-        System.out.println(videoJuego.getJuegoLanzado());
+        Iva pagado = new Iva(
+                "Bancolombia", 
+                true);
         
-        System.out.println(videoJuego.getNombre());
-        System.out.println(videoJuego.getNombreDelJugador());
+        videoJuego.setFormasDePago(pagado);
         
-        videoJuego.lanzamientoDeJuego();
-        
-        System.out.println(videoJuego.getPrecioDelJuego());  
-        System.out.println(videoJuego.getDescuentoInicialDelJuego());
-        System.out.println(videoJuego.getJuegoLanzado());
-        
-        System.out.println(videoJuego.getNombre());
-        System.out.println(videoJuego.getNombreDelJugador());
+        System.out.println("Modo de pago:");
+        System.out.println(videoJuego.getFormasDePago().getNombre());
+        System.out.println("El nombre del comprador es:");
+        System.out.println(videoJuego.getCantidadDeVentas().getNombreDelCliente());
+        System.out.println("Su numero de venta es:");
+        System.out.println(videoJuego.getCantidadDeVentas().getNumeroDeVenta());
         
     }
     
