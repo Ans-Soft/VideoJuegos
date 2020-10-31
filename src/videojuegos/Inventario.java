@@ -223,6 +223,11 @@ public class Inventario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Ingresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cerrar");
 
@@ -285,6 +290,26 @@ public class Inventario extends javax.swing.JFrame {
     private void opcionSi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionSi2ActionPerformed
         this.campoValorDescuento2.setEnabled(true);
     }//GEN-LAST:event_opcionSi2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Calculando el valor del descuento total
+        float precioNormal = (Float)this.campoPrecioNormal.getValue();
+        int descuentoTotal = 0;
+        
+        if(this.campoValorDescuento1.isEnabled()){
+            descuentoTotal += (Integer)this.campoValorDescuento1.getValue();
+        }
+        
+        if(this.campoValorDescuento2.isEnabled()){
+            descuentoTotal += (Integer)this.campoValorDescuento2.getValue();
+        }
+        
+        float valorDescontado = 0;
+        valorDescontado = (precioNormal/100) * descuentoTotal;
+        
+        float precioFinal = precioNormal - valorDescontado;
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     /**
