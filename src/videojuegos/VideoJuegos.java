@@ -1,14 +1,16 @@
 package videojuegos;
 
-
 public class VideoJuegos {
     
     private String nombre;//Nombre del videojuego
     private int precioDelJuego;//Precio del juego
-    private int descuentoInicialDelJuego;//Descuento en las primeras compras despues de ser lanzado
+    private int descuentoInicialDelJuego;//Descuento en las primeras compras 
+    //despues de ser lanzado
     private date fechaDeLanzamiento;//Fecha en la que dio el lanzamiento del juego
     private String nombreDelJugador;//El username del comprador 
     private Boolean juegoLanzado;//Si fue ya lanzado o no 
+    private int descuentoPorTarjeta;//un descuento aparte por si la persona tiene
+    //puntos en su tarjeta de compra 
     
     //Atributos de composición
     private Ventas cantidadDeVentas = null;
@@ -27,7 +29,16 @@ public class VideoJuegos {
         this.fechaDeLanzamiento = fechaDeLanzamiento;
         this.nombreDelJugador = nombreDelJugador;
         this.juegoLanzado = juegoLanzado;
+        this.descuentoPorTarjeta = descuentoPorTarjeta;
         this.cantidadDeVentas = new Ventas(78, "Samuel");  
+    }
+
+    public int getDescuentoPorTarjeta() {
+        return descuentoPorTarjeta;
+    }
+
+    public void setDescuentoPorTarjeta(int descuentoPorTarjeta) {
+        this.descuentoPorTarjeta = descuentoPorTarjeta;
     }
 
     public Ventas getCantidadDeVentas() {

@@ -1,8 +1,11 @@
 package videojuegos;
 
 import java.awt.Image;
+import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -61,9 +64,9 @@ public class Inventario extends javax.swing.JFrame {
         opcionNo2 = new javax.swing.JRadioButton();
         opcionSi2 = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tabla = new javax.swing.JTable();
+        botonIngresar = new javax.swing.JButton();
+        botonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -198,13 +201,13 @@ public class Inventario extends javax.swing.JFrame {
                     .addComponent(campoValorDescuento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(opcionSi2)
                         .addComponent(opcionNo2)
                         .addComponent(campoValorDescuento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)))
+                        .addComponent(jLabel8))
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -212,7 +215,7 @@ public class Inventario extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -220,16 +223,21 @@ public class Inventario extends javax.swing.JFrame {
                 "Nombre", "Username", "Precio final"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
 
-        jButton1.setText("Ingresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonIngresar.setText("Ingresar");
+        botonIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonIngresarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cerrar");
+        botonCerrar.setText("Cerrar");
+        botonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCerrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,9 +254,9 @@ public class Inventario extends javax.swing.JFrame {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
-                        .addComponent(jButton1)
+                        .addComponent(botonIngresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(botonCerrar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -267,8 +275,8 @@ public class Inventario extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(botonIngresar)
+                    .addComponent(botonCerrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -291,8 +299,30 @@ public class Inventario extends javax.swing.JFrame {
         this.campoValorDescuento2.setEnabled(true);
     }//GEN-LAST:event_opcionSi2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         //Calculando el valor del descuento total
+        
+        VideoJuegos videojuegos = new VideoJuegos("", 0, 0, new date(), "", false);
+        
+        videojuegos.setNombre(campoNombre.getText());
+        campoNombre.setText("");
+        
+        videojuegos.setNombreDelJugador(campoUserName.getText());
+        campoUserName.setText("");
+        
+        videojuegos.setDescuentoInicialDelJuego((Integer)campoValorDescuento1.getValue());
+        campoValorDescuento1.setValue(0);
+        
+        videojuegos.setPrecioDelJuego((Integer)campoPrecioNormal.getValue());
+        campoPrecioNormal.setValue(0);
+        
+        videojuegos.setJuegoLanzado(opcionSi1.isSelected());
+        
+        videojuegos.setDescuentoPorTarjeta((Integer)campoValorDescuento2.getValue());
+        campoValorDescuento2.setValue(0);
+        
+        llenarTabla(videojuegos);
+        
         float precioNormal = (Float)this.campoPrecioNormal.getValue();
         int descuentoTotal = 0;
         
@@ -308,9 +338,27 @@ public class Inventario extends javax.swing.JFrame {
         valorDescontado = (precioNormal/100) * descuentoTotal;
         
         float precioFinal = precioNormal - valorDescontado;
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_botonIngresarActionPerformed
 
+    private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botonCerrarActionPerformed
+
+    private void llenarTabla(VideoJuegos videojuegos){
+        DefaultTableModel modelo = (DefaultTableModel)tabla.getModel();
+        
+        Vector fila = new Vector();
+        
+        fila.add(videojuegos.getNombre());
+        fila.add(videojuegos.getNombreDelJugador());
+        fila.add(videojuegos.getPrecioDelJuego());
+        fila.add(videojuegos.getJuegoLanzado());
+        
+        modelo.addRow(fila);
+        
+        JOptionPane.showMessageDialog(this, "Su compra ha sido registrada, vuelva pronto.");
+    }
     
     /**
      * @param args the command line arguments
@@ -332,6 +380,8 @@ public class Inventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonCerrar;
+    private javax.swing.JButton botonIngresar;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JSpinner campoPrecioNormal;
     private javax.swing.JTextField campoUserName;
@@ -339,8 +389,6 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JSpinner campoValorDescuento2;
     private javax.swing.ButtonGroup descuentoDeLanzamiento1;
     private javax.swing.ButtonGroup descuentoDeLanzamiento2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -351,10 +399,10 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton opcionNo1;
     private javax.swing.JRadioButton opcionNo2;
     private javax.swing.JRadioButton opcionSi1;
     private javax.swing.JRadioButton opcionSi2;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
